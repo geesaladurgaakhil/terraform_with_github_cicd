@@ -5,8 +5,10 @@ on:
     branches: [ main ]
     paths:
       - 'environments/**'
+  workflow_dispatch:
 
 permissions:
+  id-token: write
   contents: read
   pull-requests: write
 
@@ -21,6 +23,8 @@ jobs:
   terraform-ci:
     name: Format, Validate, Lint, Plan
     runs-on: ubuntu-latest
+    environment:
+      name: dev
 
     steps:
       - name: Checkout code
@@ -40,7 +44,7 @@ jobs:
       - name: Terraform Init (no backend, validate/plan only)
         id: init
         working-directory: ${{ env.TF_WORKING_DIR }}
-        run: terraform init -backend=false
+        run: terraform init
 
       - name: Terraform Validate
         id: validate
@@ -60,9 +64,9 @@ jobs:
       - name: Azure Login (OIDC)
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: Terraform Plan
         id: plan

@@ -2,7 +2,7 @@
 # storage_account_name MUST be globally unique across all of Azure,
 # lowercase letters and numbers only, 3-24 characters.
 
-storage_account_name = "stdevpractice001"
+storage_account_name = "stdevakh76drew001"
 resource_group_name  = "rg-terraform-demo"
 location             = "Central India"
 environment          = "dev"

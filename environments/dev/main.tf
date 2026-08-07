@@ -21,7 +21,7 @@ resource "azurerm_storage_account" "this" {
 
   tags = merge(var.tags, {
     environment = var.environment
-    managed_by  = "terraform"
+    managed_by  = "terraformbyakhil"
   })
 }
 
